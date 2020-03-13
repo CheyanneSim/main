@@ -19,7 +19,7 @@ public class FilterPredicate implements Predicate<Person> {
         if (filter.equals("debt")) {
             return !person.getDebts().asUnmodifiableObservableList().isEmpty();
         } else {
-            // filter.equals("loan")
+            // filter loans
             return !person.getLoans().asUnmodifiableObservableList().isEmpty();
         }
     }
