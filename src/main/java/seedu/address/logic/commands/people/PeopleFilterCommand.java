@@ -2,6 +2,7 @@ package seedu.address.logic.commands.people;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliPrefix.PEOPLE_COMMAND_TYPE;
+import static seedu.address.model.FilterType.FILTER_BY_DEBT;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
@@ -20,7 +21,7 @@ public class PeopleFilterCommand extends Command {
             + "money to.\n"
             + "Parameters: debt/loan\n"
             + "Example: " + PEOPLE_COMMAND_TYPE + " "
-            + COMMAND_WORD + " debt";
+            + COMMAND_WORD + FILTER_BY_DEBT;
 
     private final FilterPredicate predicate;
 

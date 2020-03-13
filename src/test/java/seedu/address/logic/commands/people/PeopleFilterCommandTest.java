@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.model.FilterType.FILTER_BY_DEBT;
+import static seedu.address.model.FilterType.FILTER_BY_LOAN;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
@@ -29,14 +31,13 @@ public class PeopleFilterCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private FilterPredicate debtFilterPredicate = new FilterPredicate(FILTER_BY_DEBT);
+    private FilterPredicate loanFilterPredicate = new FilterPredicate(FILTER_BY_LOAN);
+    private PeopleFilterCommand debtFilterCommand = new PeopleFilterCommand(debtFilterPredicate);
+    private PeopleFilterCommand loanFilterCommand = new PeopleFilterCommand(loanFilterPredicate);
 
     @Test
     public void equals() {
-        FilterPredicate debtFilterPredicate = new FilterPredicate("debt");
-        FilterPredicate loanFilterPredicate = new FilterPredicate("loan");
-
-        PeopleFilterCommand debtFilterCommand = new PeopleFilterCommand(debtFilterPredicate);
-        PeopleFilterCommand loanFilterCommand = new PeopleFilterCommand(loanFilterPredicate);
 
         // same object -> returns true
         assertTrue(debtFilterCommand.equals(debtFilterCommand));
@@ -59,16 +60,12 @@ public class PeopleFilterCommandTest {
     @Test
     public void execute_filter_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 6);
-        FilterPredicate debtFilterPredicate = new FilterPredicate("debt");
-        PeopleFilterCommand filterDebtCommand = new PeopleFilterCommand(debtFilterPredicate);
         expectedModel.updateFilteredPersonList(debtFilterPredicate);
-        assertCommandSuccess(filterDebtCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(debtFilterCommand, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
 
-        FilterPredicate loanFilterPredicate = new FilterPredicate("loan");
-        PeopleFilterCommand filterLoanCommand = new PeopleFilterCommand(loanFilterPredicate);
         expectedModel.updateFilteredPersonList(loanFilterPredicate);
-        assertCommandSuccess(filterLoanCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(loanFilterCommand, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
     }
 }

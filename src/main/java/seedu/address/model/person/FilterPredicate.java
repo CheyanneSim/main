@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import static seedu.address.model.FilterType.FILTER_BY_DEBT;
+import static seedu.address.model.FilterType.FILTER_BY_LOAN;
+
 import java.util.function.Predicate;
 
 /**
@@ -15,8 +18,8 @@ public class FilterPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        assert filter.equals("debt") || filter.equals("loan");
-        if (filter.equals("debt")) {
+        assert filter.equals(FILTER_BY_DEBT) || filter.equals(FILTER_BY_LOAN);
+        if (filter.equals(FILTER_BY_DEBT)) {
             return !person.getDebts().asUnmodifiableObservableList().isEmpty();
         } else {
             // filter loans

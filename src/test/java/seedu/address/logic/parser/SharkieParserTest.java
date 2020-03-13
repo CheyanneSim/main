@@ -7,6 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliPrefix.PEOPLE_COMMAND_TYPE;
 import static seedu.address.logic.parser.CliPrefix.WALLET_COMMAND_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_INDEX;
+import static seedu.address.model.FilterType.FILTER_BY_DEBT;
+import static seedu.address.model.FilterType.FILTER_BY_LOAN;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalDebts.TEXTBOOK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -124,12 +126,12 @@ public class SharkieParserTest {
 
     @Test
     public void parsePeopleCommand_filter() throws Exception {
-        PeopleFilterCommand filterDebt = (PeopleFilterCommand) parser.parseCommand(
+        PeopleFilterCommand filterDebtCommand = (PeopleFilterCommand) parser.parseCommand(
                 PEOPLE_COMMAND_TYPE + " " + PeopleFilterCommand.COMMAND_WORD + " debt");
-        assertEquals(new PeopleFilterCommand(new FilterPredicate("debt")), filterDebt);
-        PeopleFilterCommand filterLoan = (PeopleFilterCommand) parser.parseCommand(
+        assertEquals(new PeopleFilterCommand(new FilterPredicate(FILTER_BY_DEBT)), filterDebtCommand);
+        PeopleFilterCommand filterLoanCommand = (PeopleFilterCommand) parser.parseCommand(
                 PEOPLE_COMMAND_TYPE + " " + PeopleFilterCommand.COMMAND_WORD + " loan");
-        assertEquals(new PeopleFilterCommand(new FilterPredicate("loan")), filterLoan);
+        assertEquals(new PeopleFilterCommand(new FilterPredicate(FILTER_BY_LOAN)), filterLoanCommand);
     }
 
     @Test
