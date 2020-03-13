@@ -1,11 +1,16 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.Month;
+import java.time.Year;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Expense;
 import seedu.address.model.transaction.Income;
 import seedu.address.model.transaction.Transaction;
@@ -170,6 +175,21 @@ public interface Model {
      */
     void setExpense(Expense target, Expense editedExpense);
 
+    Amount getTotalExpenditureInMonth(Date date);
+
+    /**
+     * Sets a budget as {@code budget}.
+     */
+    void setBudget(Budget budget);
+
+    /**
+     * Sets the default budget as {@code budget}.
+     */
+    void setDefaultBudget(Budget budget);
+
+    boolean hasExceededBudget(Month month, Year year);
+
+    Budget getBudget(Month month, Year year);
     /**
      * Deletes the given transaction.
      * The transaction must exist in the Wallet.

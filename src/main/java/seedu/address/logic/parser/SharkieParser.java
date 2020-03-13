@@ -21,13 +21,17 @@ import seedu.address.logic.commands.people.PeopleFindCommand;
 import seedu.address.logic.commands.people.PeopleLendCommand;
 import seedu.address.logic.commands.people.PeopleListCommand;
 import seedu.address.logic.commands.people.PeopleOweCommand;
+
 import seedu.address.logic.commands.people.PeopleReceivedCommand;
 import seedu.address.logic.commands.people.PeopleRemindAllCommand;
 import seedu.address.logic.commands.people.PeopleRemindCommand;
 import seedu.address.logic.commands.people.PeopleReturnedCommand;
+
+import seedu.address.logic.commands.wallet.WalletBudgetCommand;
 import seedu.address.logic.commands.wallet.WalletDeleteCommand;
 import seedu.address.logic.commands.wallet.WalletExpenseCommand;
 import seedu.address.logic.commands.wallet.WalletIncomeCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.people.PeopleAddCommandParser;
 import seedu.address.logic.parser.people.PeopleDeleteCommandParser;
@@ -39,6 +43,8 @@ import seedu.address.logic.parser.people.PeopleOweCommandParser;
 import seedu.address.logic.parser.people.PeopleReceivedCommandParser;
 import seedu.address.logic.parser.people.PeopleRemindCommandParser;
 import seedu.address.logic.parser.people.PeopleReturnedCommandParser;
+
+import seedu.address.logic.parser.wallet.WalletBudgetCommandParser;
 import seedu.address.logic.parser.wallet.WalletDeleteCommandParser;
 import seedu.address.logic.parser.wallet.WalletExpenseCommandParser;
 import seedu.address.logic.parser.wallet.WalletIncomeCommandParser;
@@ -142,6 +148,8 @@ public class SharkieParser {
         }
 
         switch (commandWord) {
+        case WalletBudgetCommand.COMMAND_WORD:
+            return new WalletBudgetCommandParser().parse(arguments);
         case WalletExpenseCommand.COMMAND_WORD:
             return new WalletExpenseCommandParser().parse(arguments);
 

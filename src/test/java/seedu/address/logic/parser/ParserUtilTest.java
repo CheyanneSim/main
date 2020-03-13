@@ -8,6 +8,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,6 +36,8 @@ public class ParserUtilTest {
     private static final String INVALID_DATE_2 = "11.11.2020";
     private static final String INVALID_DATE_3 = "30/02/2020";
     private static final String INVALID_DATE_4 = "2/2/2020";
+    private static final String INVALID_MONTH = "JANUARY";
+    private static final String INVALID_YEAR = "twenty twenty";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -42,6 +46,8 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_DATE = "02/02/2020";
+    private static final String VALID_MONTH = "02";
+    private static final String VALID_YEAR = "2020";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -180,6 +186,50 @@ public class ParserUtilTest {
     public void parseDate_validValueWithWhitespace_returnsDate() throws Exception {
         Date date = new Date(LocalDate.parse(VALID_DATE, DateTimeFormatter.ofPattern(DATE_PATTERN)));
         assertEquals(date, ParserUtil.parseDate(WHITESPACE + VALID_DATE + WHITESPACE));
+    }
+
+    @Test
+    public void parseMonth_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMonth(null));
+    }
+
+    @Test
+    public void parseMonth_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMonth(INVALID_MONTH));
+    }
+
+    @Test
+    public void parseMonth_validValueWithoutWhitespace_returnsMonth() throws Exception {
+        Month month = Month.of(Integer.parseInt(VALID_MONTH));
+        assertEquals(month, ParserUtil.parseMonth(VALID_MONTH));
+    }
+
+    @Test
+    public void parseMonth_validValueWithWhitespace_returnsMonth() throws Exception {
+        Month month = Month.of(Integer.parseInt(VALID_MONTH));
+        assertEquals(month, ParserUtil.parseMonth(WHITESPACE + VALID_MONTH + WHITESPACE));
+    }
+
+    @Test
+    public void parseYear_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseYear(null));
+    }
+
+    @Test
+    public void parseYear_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseYear(INVALID_YEAR));
+    }
+
+    @Test
+    public void parseYear_validValueWithoutWhitespace_returnsMonth() throws Exception {
+        Year year = Year.of(Integer.parseInt(VALID_YEAR));
+        assertEquals(year, ParserUtil.parseYear(VALID_YEAR));
+    }
+
+    @Test
+    public void parseYear_validValueWithWhitespace_returnsMonth() throws Exception {
+        Year year = Year.of(Integer.parseInt(VALID_YEAR));
+        assertEquals(year, ParserUtil.parseYear(WHITESPACE + VALID_YEAR + WHITESPACE));
     }
 
     @Test

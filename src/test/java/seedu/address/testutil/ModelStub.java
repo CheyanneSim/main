@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
 import java.nio.file.Path;
+import java.time.Month;
+import java.time.Year;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,6 +13,9 @@ import seedu.address.model.ReadOnlyUserData;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReadOnlyWallet;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Expense;
 import seedu.address.model.transaction.Income;
 import seedu.address.model.transaction.Transaction;
@@ -123,7 +128,6 @@ public class ModelStub implements Model {
     }
 
 
-
     @Override
     public boolean hasIncome(Income income) {
         throw new AssertionError(
@@ -171,6 +175,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Amount getTotalExpenditureInMonth(Date date) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setBudget(Budget budget) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteTransaction(Transaction target) {
         throw new AssertionError(
                 "This method should not be called.");
@@ -183,16 +197,29 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setDefaultBudget(Budget budget) {
+        throw new AssertionError("This method should not be called.");
+    }
+
     public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
+    public boolean hasExceededBudget(Month month, Year year) {
+        throw new AssertionError("This method should not be called.");
+
+    }
+
     public ObservableList<Expense> getFilteredExpenseList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
+    public Budget getBudget(Month month, Year year) {
+        throw new AssertionError("This method should not be called.");
+    }
+
     public ObservableList<Income> getFilteredIncomeList() {
         throw new AssertionError("This method should not be called.");
     }

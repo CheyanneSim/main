@@ -3,6 +3,8 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
@@ -18,10 +20,14 @@ public class Date {
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     public static final String MESSAGE_CONSTRAINTS = "Dates should be in form: " + DATE_FORMAT;
 
+    public static final String MONTH_MESSAGE_CONSTRAINTS = "Month should be an integer (between 1 to 12)";
+    public static final String YEAR_MESSAGE_CONSTRAINTS = "Year should be an integer";
+
     private LocalDate date;
 
     /**
      * Constructs a valid Date object.
+     *
      * @param date A valid date.
      */
     public Date(LocalDate date) {
@@ -36,7 +42,6 @@ public class Date {
         try {
             LocalDate.parse(test, DateTimeFormatter.ofPattern(DATE_PATTERN).withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
             return false;
         } catch (IllegalArgumentException e) {
             return false;
@@ -61,6 +66,19 @@ public class Date {
      */
     public String getInputFormat() {
         return date.format(DateTimeFormatter.ofPattern(DATE_PATTERN));
+    }
+
+
+    public Month getMonth() {
+        return date.getMonth();
+    }
+
+    public Year getYear() {
+        return Year.of(date.getYear());
+    }
+
+    public String getMonthString() {
+        return date.getMonth().toString();
     }
 
     @Override

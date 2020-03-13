@@ -1,12 +1,19 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Month;
+import java.time.Year;
 import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.BudgetList;
+import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Expense;
 import seedu.address.model.transaction.Income;
 import seedu.address.model.transaction.Transaction;
@@ -20,8 +27,10 @@ public class Wallet implements ReadOnlyWallet {
 
     private final TransactionList<Income> incomes = new TransactionList<>();
     private final TransactionList<Expense> expenses = new TransactionList<>();
+    private BudgetList<Budget> budgetList = new BudgetList<>();
 
     public Wallet() {
+        setDefaultBudget(Budget.getDefault());
     }
 
     /**
@@ -124,6 +133,60 @@ public class Wallet implements ReadOnlyWallet {
     public void deleteExpense(Expense key) {
         expenses.remove(key);
     }
+
+    public Amount getTotalExpenditureInMonth(Date date) {
+        requireNonNull(date);
+        TransactionList<Expense> filteredExpenseList = expenses.getTransactionsInMonth(date.getMonth(), date.getYear());
+
+        return filteredExpenseList.getTotal();
+    }
+
+    // =========== Budget-related Operations =============================================================
+
+    /**
+     * Replaces the budget in the Wallet with {@code budget}. If a budget was previously set, it overrides that
+     * budget and sets this new value.
+     */
+    public void setBudget(Budget budget) {
+        requireNonNull(budget);
+
+        if (budgetList.containsBudgetOf(budget.getMonth(), budget.getYear())) {
+            Budget existingBudget = budgetList.get(budget.getMonth(), budget.getYear());
+            budgetList.setBudget(existingBudget, budget);
+        } else {
+            budgetList.add(budget);
+        }
+    }
+
+    /**
+     * Replaces the default budget in the Wallet with {@code budget}.
+     */
+    public void setDefaultBudget(Budget budget) {
+        requireNonNull(budget);
+        budgetList.setDefaultBudget(budget);
+    }
+
+    /**
+     * Checks if the budget has been exceeded in the month and year selected.
+     */
+    public boolean hasExceededBudget(Month month, Year year) {
+        requireAllNonNull(month, year);
+        TransactionList<Expense> filteredExpenseList = expenses.getTransactionsInMonth(month, year);
+
+        Budget budgetToCompare;
+        if (budgetList.containsBudgetOf(month, year)) {
+            budgetToCompare = budgetList.get(month, year);
+        } else {
+            budgetToCompare = budgetList.getDefaultBudget();
+        }
+
+        return filteredExpenseList.getTotal().amount > budgetToCompare.getAmount().amount;
+    }
+
+    public Budget getBudget(Month month, Year year) {
+        return budgetList.get(month, year);
+    }
+
     // =========== Util methods =============================================================
 
     @Override

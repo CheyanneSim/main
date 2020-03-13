@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.transaction.Date.DATE_PATTERN;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
@@ -128,6 +130,50 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern(DATE_PATTERN)));
+    }
+
+    /**
+     * Parses a {@code String month} into a {@code Month}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code month} is invalid.
+     */
+    public static Month parseMonth(String month) throws ParseException {
+        requireNonNull(month);
+        String trimmedMonth = month.trim();
+
+        try {
+            int monthInt = Integer.parseInt(trimmedMonth);
+            if (monthInt < 1 || monthInt > 12) {
+                throw new ParseException(Date.MONTH_MESSAGE_CONSTRAINTS);
+            }
+        } catch (Exception e) {
+            throw new ParseException(Date.MONTH_MESSAGE_CONSTRAINTS);
+        }
+
+        return Month.of(Integer.parseInt(trimmedMonth));
+    }
+
+    /**
+     * Parses a {@code String year} into a {@code Year}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Year parseYear(String year) throws ParseException {
+        requireNonNull(year);
+        String trimmedYear = year.trim();
+
+        try {
+            int yearInt = Integer.parseInt(trimmedYear);
+            if (yearInt < 0) {
+                throw new ParseException(Date.YEAR_MESSAGE_CONSTRAINTS);
+            }
+        } catch (Exception e) {
+            throw new ParseException(Date.YEAR_MESSAGE_CONSTRAINTS);
+        }
+
+        return Year.of(Integer.parseInt(trimmedYear));
     }
 
     /**

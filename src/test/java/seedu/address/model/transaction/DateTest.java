@@ -13,7 +13,7 @@ class DateTest {
     }
 
     @Test
-    public void isValidPhone() {
+    public void isValidDate() {
         // null date
         assertThrows(NullPointerException.class, () -> Date.isValidDate(null));
 

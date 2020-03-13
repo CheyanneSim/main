@@ -1,8 +1,8 @@
 package seedu.address.logic.parser.people;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TRANSACTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.LEND_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.LEND_DESC_BOB;
@@ -84,31 +84,31 @@ public class PeopleLendCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // valid description, invalid amount without the optional date
-        assertParseFailure(parser, "1 " + PREFIX_NAME + VALID_DESC_AMY + " " + INVALID_AMOUNT,
+        assertParseFailure(parser, "1 " + PREFIX_NAME + VALID_DESC_AMY + " " + INVALID_AMOUNT_DESC,
                 Amount.MESSAGE_CONSTRAINTS);
         // valid description, valid amount with invalid date
         assertParseFailure(parser,
-                "1 " + PREFIX_NAME + VALID_DESC_AMY + " " + PREFIX_AMOUNT + VALID_AMOUNT_AMY + INVALID_DATE,
+                "1 " + PREFIX_NAME + VALID_DESC_AMY + " " + PREFIX_AMOUNT + VALID_AMOUNT_AMY + INVALID_DATE_DESC,
                 Date.MESSAGE_CONSTRAINTS);
         // valid description, invalid amount with valid date
-        assertParseFailure(parser, "1 " + PREFIX_NAME + VALID_DESC_AMY + INVALID_AMOUNT + VALID_DATE_AMY,
+        assertParseFailure(parser, "1 " + PREFIX_NAME + VALID_DESC_AMY + INVALID_AMOUNT_DESC + VALID_DATE_AMY,
                 Amount.MESSAGE_CONSTRAINTS);
         // valid description, invalid amount and invalid date
-        assertParseFailure(parser, "1 " + PREFIX_NAME + VALID_DESC_AMY + INVALID_AMOUNT + INVALID_DATE,
+        assertParseFailure(parser, "1 " + PREFIX_NAME + VALID_DESC_AMY + INVALID_AMOUNT_DESC + INVALID_DATE_DESC,
                 Amount.MESSAGE_CONSTRAINTS);
 
         // invalid description, invalid amount without the optional date
-        assertParseFailure(parser, "1" + INVALID_TRANSACTION_DESC + " " + INVALID_AMOUNT,
+        assertParseFailure(parser, "1" + INVALID_TRANSACTION_DESC + " " + INVALID_AMOUNT_DESC,
                 Description.MESSAGE_CONSTRAINTS);
         // invalid description, valid amount with invalid date
         assertParseFailure(parser,
-                "1" + INVALID_TRANSACTION_DESC + " " + PREFIX_AMOUNT + VALID_AMOUNT_AMY + INVALID_DATE,
+                "1" + INVALID_TRANSACTION_DESC + " " + PREFIX_AMOUNT + VALID_AMOUNT_AMY + INVALID_DATE_DESC,
                 Description.MESSAGE_CONSTRAINTS);
         // invalid description, invalid amount with valid date
-        assertParseFailure(parser, "1" + INVALID_TRANSACTION_DESC + INVALID_AMOUNT + VALID_DATE_AMY,
+        assertParseFailure(parser, "1" + INVALID_TRANSACTION_DESC + INVALID_AMOUNT_DESC + VALID_DATE_AMY,
                 Description.MESSAGE_CONSTRAINTS);
         // invalid description, invalid amount and invalid date
-        assertParseFailure(parser, "1" + INVALID_TRANSACTION_DESC + INVALID_AMOUNT + INVALID_DATE,
+        assertParseFailure(parser, "1" + INVALID_TRANSACTION_DESC + INVALID_AMOUNT_DESC + INVALID_DATE_DESC,
                 Description.MESSAGE_CONSTRAINTS);
     }
 

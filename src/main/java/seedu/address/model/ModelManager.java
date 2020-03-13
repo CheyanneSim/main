@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.Month;
+import java.time.Year;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +14,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Expense;
 import seedu.address.model.transaction.Income;
 import seedu.address.model.transaction.Transaction;
@@ -222,6 +227,37 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Amount getTotalExpenditureInMonth(Date date) {
+        return wallet.getTotalExpenditureInMonth(date);
+    }
+
+    @Override
+    public void setBudget(Budget budget) {
+        requireNonNull(budget);
+        wallet.setBudget(budget);
+    }
+
+    @Override
+    public void setDefaultBudget(Budget budget) {
+        requireNonNull(budget);
+        wallet.setDefaultBudget(budget);
+    }
+
+    @Override
+    public boolean hasExceededBudget(Month month, Year year) {
+        return wallet.hasExceededBudget(month, year);
+    }
+
+    @Override
+    public Budget getBudget(Month month, Year year) {
+        return wallet.getBudget(month, year);
+    }
+
+    // =========== Util Methods ===============================================================================
+
+    /**
+     * Deletes {@code transactionToDelete} from the transaction list.
+     */
     public void deleteTransaction(Transaction transactionToDelete) {
         if (transactionToDelete instanceof Expense) {
             deleteExpense((Expense) transactionToDelete);

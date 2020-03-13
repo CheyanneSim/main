@@ -451,6 +451,13 @@ Steps 1a1-1a2 are repeated until the amount keyed in is correct.
 +
 Use case resumes at step 2.
 
+* 1b. The amount keyed in has no date attached to it.
++
+[none]
+** 1b1. Wallet automatically assigns the budget entered as the default budget.
++
+Use case ends.
+
 [discrete]
 ==== Use case: Deleting an income/expense
 

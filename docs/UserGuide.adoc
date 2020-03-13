@@ -281,11 +281,14 @@ Expected Outcome:
 //tag::walletbudget[]
 ==== Setting a budget: `budget`
 Sets a budget for you. +
-Format: `wallet budget $/amount`
+Format: `wallet budget $/amount [m/<month>] [y/<year>]`
 
 ****
-* Overwrites the current budget value stored.
+* If no month or year is specified, the default budget is set as the amount provided.
+* Overwrites the current budget value stored at that month, if it was previously added.
 * The value of the budget must be a positive integer.
+* The value of the month must be a positive integer between 1 - 12.
+* The value of the year must be a positive integer.
 ****
 
 Examples:
@@ -590,8 +593,8 @@ e.g. `wallet edit 1 n/Duck rice $/4.00`
 e.g. `wallet find rice`
 * *Delete* : `wallet delete <index>` +
 e.g. `wallet delete 1`
-* *Budget* : `wallet budget $/<amount>` +
-e.g. `wallet budget $/1000`
+* *Budget* : `wallet budget $/<amount> m/<month> y/<year>` +
+e.g. `wallet budget $/1000 m/04 y/2020`
 
 === People Commands
 * *Add* : `people add n/<name> p/<phone number> e/<email address>` +
