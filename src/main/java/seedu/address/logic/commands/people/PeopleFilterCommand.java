@@ -16,7 +16,7 @@ public class PeopleFilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all persons who you owe or lend "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all persons whom you owed or lent "
             + "money to.\n"
             + "Parameters: debt/loan\n"
             + "Example: " + PEOPLE_COMMAND_TYPE + " "
