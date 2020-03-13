@@ -1,31 +1,33 @@
 package seedu.address.model.person;
 
-import java.util.function.Function;
 import java.util.function.Predicate;
-
-import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.TransactionList;
 
 /**
  * Tests whether a {@code Person} has any debts or loans.
  */
 public class FilterPredicate implements Predicate<Person> {
 
-    private final Function<Person, TransactionList<? extends Transaction>> function;
+    private final String filter;
 
-    public FilterPredicate(Function<Person, TransactionList<? extends Transaction>> function) {
-        this.function = function;
+    public FilterPredicate(String filter) {
+        this.filter = filter;
     }
 
     @Override
     public boolean test(Person person) {
-        return !function.apply(person).asUnmodifiableObservableList().isEmpty();
+        assert filter.equals("debt") || filter.equals("loan");
+        if (filter.equals("debt")) {
+            return !person.getDebts().asUnmodifiableObservableList().isEmpty();
+        } else {
+            // filter.equals("loan")
+            return !person.getLoans().asUnmodifiableObservableList().isEmpty();
+        }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FilterPredicate // instanceof handles nulls
-                && function.equals(((FilterPredicate) other).function)); // state check
+                && filter.equals(((FilterPredicate) other).filter)); // state check
     }
 }

@@ -2,16 +2,10 @@ package seedu.address.logic.parser.people;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.function.Function;
-
 import seedu.address.logic.commands.people.PeopleFilterCommand;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.FilterPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.TransactionList;
 
 /**
  * Parses input arguments and creates a new PeopleFilterCommand object
@@ -25,12 +19,11 @@ public class PeopleFilterCommandParser implements Parser<PeopleFilterCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public PeopleFilterCommand parse(String args) throws ParseException {
-        try {
-            Function<Person, TransactionList<? extends Transaction>> function = ParserUtil.parseFunction(args);
-            return new PeopleFilterCommand(new FilterPredicate(function));
-        } catch (ParseException pe) {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty() || !trimmedArgs.equals("debt") && !trimmedArgs.equals("loan")) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PeopleFilterCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PeopleFilterCommand.MESSAGE_USAGE));
         }
+        return new PeopleFilterCommand(new FilterPredicate(trimmedArgs));
     }
 }

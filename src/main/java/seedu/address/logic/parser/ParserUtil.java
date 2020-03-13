@@ -8,22 +8,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Function;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.people.PeopleFilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Description;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.TransactionList;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -133,24 +128,6 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern(DATE_PATTERN)));
-    }
-
-    /**
-     * Parses a {@code String transaction} into an {@code Function}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code transaction} is invalid.
-     */
-    public static Function<Person, TransactionList<? extends Transaction>> parseFunction(String transaction) throws ParseException {
-        requireNonNull(transaction);
-        String trimmedTransaction = transaction.trim();
-        if (trimmedTransaction.equals("debt")) {
-            return Person::getDebts;
-        } else if (trimmedTransaction.equals("loan")) {
-            return Person::getLoans;
-        } else {
-            throw new ParseException(PeopleFilterCommand.MESSAGE_USAGE);
-        }
     }
 
     /**

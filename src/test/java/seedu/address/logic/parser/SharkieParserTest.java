@@ -28,6 +28,7 @@ import seedu.address.logic.commands.people.PeopleClearCommand;
 import seedu.address.logic.commands.people.PeopleDeleteCommand;
 import seedu.address.logic.commands.people.PeopleEditCommand;
 import seedu.address.logic.commands.people.PeopleEditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.people.PeopleFilterCommand;
 import seedu.address.logic.commands.people.PeopleFindCommand;
 import seedu.address.logic.commands.people.PeopleLendCommand;
 import seedu.address.logic.commands.people.PeopleListCommand;
@@ -40,6 +41,7 @@ import seedu.address.logic.commands.wallet.WalletDeleteCommand;
 import seedu.address.logic.commands.wallet.WalletExpenseCommand;
 import seedu.address.logic.commands.wallet.WalletIncomeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.FilterPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -118,6 +120,16 @@ public class SharkieParserTest {
                 + PeopleOweCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
                 + PersonUtil.getDebtDescription(TEXTBOOK));
         assertEquals(new PeopleOweCommand(INDEX_FIRST_PERSON, TEXTBOOK), command);
+    }
+
+    @Test
+    public void parsePeopleCommand_filter() throws Exception {
+        PeopleFilterCommand filterDebt = (PeopleFilterCommand) parser.parseCommand(
+                PEOPLE_COMMAND_TYPE + " " + PeopleFilterCommand.COMMAND_WORD + " debt");
+        assertEquals(new PeopleFilterCommand(new FilterPredicate("debt")), filterDebt);
+        PeopleFilterCommand filterLoan = (PeopleFilterCommand) parser.parseCommand(
+                PEOPLE_COMMAND_TYPE + " " + PeopleFilterCommand.COMMAND_WORD + " loan");
+        assertEquals(new PeopleFilterCommand(new FilterPredicate("loan")), filterLoan);
     }
 
     @Test
