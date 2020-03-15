@@ -18,11 +18,11 @@ public class FilterPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        assert filter.equals(FILTER_BY_DEBT) || filter.equals(FILTER_BY_LOAN);
         if (filter.equals(FILTER_BY_DEBT)) {
             return !person.getDebts().asUnmodifiableObservableList().isEmpty();
         } else {
             // filter loans
+            assert filter.equals(FILTER_BY_LOAN);
             return !person.getLoans().asUnmodifiableObservableList().isEmpty();
         }
     }

@@ -466,7 +466,7 @@ Expected Outcome:
 //tag::filter[]
 ==== Filtering people you owe/lend: `filter`
 
-Filters people in your contact list whom you owed or lent money to. +
+Filters out people in your contact list whom you owed or lent money to. +
 Format: `people filter <options>`
 
 ****
