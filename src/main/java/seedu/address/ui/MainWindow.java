@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private WalletListPanel walletListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private EnterUserDataWindow enterUserDataWindow;
@@ -45,6 +46,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane transactionListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -111,6 +115,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        walletListPanel = new WalletListPanel(logic.getFilteredTransactionList());
+        transactionListPanelPlaceholder.getChildren().add(walletListPanel.getRoot());
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -122,6 +129,11 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private void updateWalletList() {
+        walletListPanel = new WalletListPanel(logic.getFilteredTransactionList());
+        transactionListPanelPlaceholder.getChildren().add(walletListPanel.getRoot());
     }
 
     /**
@@ -192,6 +204,10 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public WalletListPanel getWalletListPanel() {
+        return walletListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -202,6 +218,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            updateWalletList();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

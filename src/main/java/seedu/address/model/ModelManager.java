@@ -180,6 +180,7 @@ public class ModelManager implements Model {
         return wallet;
     }
 
+    //Income
     @Override
     public boolean hasIncome(Income income) {
         return wallet.hasIncome(income);
@@ -203,6 +204,7 @@ public class ModelManager implements Model {
         filteredTransactions = new FilteredList<Transaction>(this.wallet.getTransactionList());
     }
 
+    //Expense
     @Override
     public boolean hasExpense(Expense expense) {
         return wallet.hasExpense(expense);
@@ -223,6 +225,22 @@ public class ModelManager implements Model {
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
         wallet.setExpense(target, editedExpense);
+        filteredTransactions = new FilteredList<Transaction>(this.wallet.getTransactionList());
+    }
+
+    //Transactions
+
+    @Override
+    public void setTransaction(Transaction transactionToEdit, Transaction editedTransaction) {
+        if (transactionToEdit instanceof Expense) {
+            setExpense((Expense) transactionToEdit, (Expense) editedTransaction);
+        } else {
+            assert transactionToEdit instanceof Income
+                    : "transactionToEdit should be either an Expense class or Income class";
+            setIncome((Income) transactionToEdit, (Income) editedTransaction);
+        }
+
+        //update transaction list
         filteredTransactions = new FilteredList<Transaction>(this.wallet.getTransactionList());
     }
 

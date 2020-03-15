@@ -223,4 +223,9 @@ public class ModelStub implements Model {
     public ObservableList<Income> getFilteredIncomeList() {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        throw new AssertionError("This method should not be called.");
+    }
 }

@@ -25,6 +25,12 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Transaction> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
+
+
+    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -205,6 +211,12 @@ public interface Model {
      * Returns an unmodifiable view of the filtered Income list
      */
     ObservableList<Income> getFilteredIncomeList();
+
+    /**
+     * Replaces the given transaction {@code target} with {@code editedTransaction}.
+     * {@code target} must exist in the Wallet.
+     */
+    void setTransaction(Transaction target, Transaction editedTransaction);
 
     /**
      * Returns an unmodifiable view of the filtered Transaction list
